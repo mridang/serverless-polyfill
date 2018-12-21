@@ -16,10 +16,24 @@ package:
   - test/
 
 functions:
-  polyfill:
-    handler: handler.handle
+  minified:
+    handler: handler.mininify
     events:
     - http:
-        path: polyfill/v2
+        path: polyfill.min.js
         method: GET
-        cors: true
+        cors:
+          origin: '*'
+          maxAge: 86400
+          allowCredentials: true
+
+  normal:
+    handler: handler.normal
+    events:
+    - http:
+        path: polyfill.js
+        method: GET
+        cors:
+          origin: '*'
+          maxAge: 86400
+          allowCredentials: true

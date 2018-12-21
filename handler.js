@@ -1,15 +1,16 @@
 const polyfiller = require("./lib/polyfiller");
 
-module.exports.handle = async (event, context) => {
+async function handle(event, context, mininify) {
   try {
     const polyfill = await polyfiller.fill({
       uaString: event.requestContext.identity.userAgent,
-      cache: true
+      cache: mininify
     });
 
     return {
       headers: {
         "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials" : true,
         "Content-Type": "application/javascript; charset=utf-8",
         "Content-Length": polyfill.length
       },
@@ -29,3 +30,9 @@ module.exports.handle = async (event, context) => {
     };
   }
 };
+
+
+module.exports = {
+  mininify: (event, context) => handle(event, context, true),
+  normal: (event, context) => handle(event, context, false)
+}

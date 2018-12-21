@@ -1,23 +1,27 @@
 {
-  "name": "polyfill",
+  "name": "serverless-polyfill",
   "version": "0.0.1",
-  "description": "Polyfills based on the user agent",
+  "description": "Polyfill service running on the Serverless framework",
+  "engines": {
+    "node": "8.10.0"
+  },
   "main": "handler.js",
   "scripts": {
     "build": "prettier --config .prettierrc --write lib/** handler.js",
     "serve": "serverless offline start",
+    "deploy": "sls deploy -v",
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CultureHQ/polyfill-lambda.git"
+    "url": "git+https://github.com/mridang/serverless-polyfill.git"
   },
-  "author": "Kevin Deisz",
+  "author": "Mridang Agarwalla <mridang@nosto.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CultureHQ/polyfill-lambda/issues"
+    "url": "https://github.com/mridang/serverless-polyfill/issues"
   },
-  "homepage": "https://github.com/CultureHQ/polyfill-lambda#readme",
+  "homepage": "https://github.com/mridang/serverless-polyfill",
   "dependencies": {
     "async": "^2.6.0",
     "polyfill-service": "^3.25.3",
