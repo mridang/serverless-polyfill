@@ -1,0 +1,25 @@
+service: polyfill
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: production
+  region: us-west-2
+
+package:
+  exclude:
+  - server.js
+  - coverage/
+  - test/
+
+functions:
+  polyfill:
+    handler: handler.handle
+    events:
+    - http:
+        path: polyfill/v2
+        method: GET
+        cors: true

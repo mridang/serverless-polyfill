@@ -1,0 +1,32 @@
+{
+  "name": "polyfill",
+  "version": "0.0.1",
+  "description": "Polyfills based on the user agent",
+  "main": "handler.js",
+  "scripts": {
+    "build": "prettier --config .prettierrc --write lib/** handler.js",
+    "serve": "serverless offline start",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CultureHQ/polyfill-lambda.git"
+  },
+  "author": "Kevin Deisz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CultureHQ/polyfill-lambda/issues"
+  },
+  "homepage": "https://github.com/CultureHQ/polyfill-lambda#readme",
+  "dependencies": {
+    "async": "^2.6.0",
+    "polyfill-service": "^3.25.3",
+    "serverless": "^1.35.1"
+  },
+  "devDependencies": {
+    "express": "^4.16.4",
+    "jest": "^23.6.0",
+    "prettier": "^1.15.3",
+    "serverless-offline": "^3.31.3"
+  }
+}
