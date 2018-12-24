@@ -9,6 +9,8 @@ provider:
   runtime: nodejs8.10
   stage: ${opt:stage, 'dev'}
   region: us-west-2
+  environment:
+    NODE_ENV: production
 
 package:
   exclude:
