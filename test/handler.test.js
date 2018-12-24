@@ -8,11 +8,21 @@ const buildEvent = (ua) => {
   };
 };
 
+Object.keys(USER_AGENTS).forEach(browser => {
+  test(`returns a reasonable minified response for ${browser}`, async (done) => {
+    const event = buildEvent(USER_AGENTS[browser]);
+    const response = await handle.mininify(event, null);
+    expect(response.statusCode).toEqual(200);
+    expect(response.headers[CONTENT_TYPE]).toEqual(MIME_APP_JS);
+    expect(response.body).toMatchSnapshot();
+    done();
+  });
+});
 
 Object.keys(USER_AGENTS).forEach(browser => {
   test(`returns a reasonable response for ${browser}`, async (done) => {
     const event = buildEvent(USER_AGENTS[browser]);
-    const response = await handle.handle(event, null);
+    const response = await handle.normal(event, null);
     expect(response.statusCode).toEqual(200);
     expect(response.headers[CONTENT_TYPE]).toEqual(MIME_APP_JS);
     expect(response.body).toMatchSnapshot();
@@ -22,7 +32,7 @@ Object.keys(USER_AGENTS).forEach(browser => {
 
 test("does not require a ua query param", async (done) => {
   const event = buildEvent(USER_AGENTS["Chrome 63"]);
-  const response = await handle.handle(event, null);
+  const response = await handle.mininify(event, null);
   expect(response.statusCode).toEqual(200);
   expect(response.headers[CONTENT_TYPE]).toEqual(MIME_APP_JS);
   expect(response.body).toMatchSnapshot();
