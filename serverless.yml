@@ -12,8 +12,6 @@ provider:
 
 package:
   exclude:
-  - server.js
-  - coverage/
   - test/
 
 functions:
