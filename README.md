@@ -1,16 +1,38 @@
-# polyfill-lambda
+# serverless-polyfill
 
-[![Build Status](https://travis-ci.com/CultureHQ/polyfill-lambda.svg?branch=master)](https://travis-ci.com/CultureHQ/polyfill-lambda)
+Uses [polyfill.io](https://polyfill.io/v2/docs/)'s service to generate a Polyfill based on the user agent of the request. Aggressively caches to ensure as few requests as possible.
 
-Uses [polyfill.io](https://polyfill.io/v2/docs/)'s service to generate a polyfill based on the user agent of the request. Aggressively caches to ensure as few requests as possible.
+##### Caching
+
+All the responses are cached for a day and varied by the `User-Agent` header. As the endpoint is the same for all browsers, the `Vary` by `User-Agent` header will ensure that cached payloads are different depending upon the browser.
+
+##### CORS
+
+CORS is enabled by default for all endpoints and allows any origin i.e. `*`
 
 ## Getting started
 
-Ensure you have `node` and `yarn` installed. Run `yarn start` to start a local server at `http://localhost:8080`. Visit that location in different browsers to view the polyfill. Note that since this server is running in development, it returns unminified JavaScript.
+Ensure you have `node` and either `npm` or `yarn` installed globally. Serverless requires Node 8.10.0.
+
+---
+
+##### NVM
+
+If you are using a different version of Node, we recommend using `nvm` to run different versions. Set up the correct Node environment bar running `nvm use`. This will automatically read the contained `.nvmrc` file and set the appropriate version.
+
+---
+
+Run `yarn install`to fetch all  the dependencies and once done, run `yarn serve` to start a local server at `http://localhost:3000`. 
 
 ## Deployment
 
-Install [`serverless`](https://serverless.com/) by running `npm install -g serverless`. You can then run `sls deploy --aws-profile [PROFILE]` to deploy the function. This will trigger output that looks something like:
+Polyfill allows deployment to AWS Lambda with a single command. Run `sls deploy --stage [STAGE]` to deploy the function. 
+
+**Note:** If the `--stage` parameter is not specified, Serverless will default to `dev`.
+
+**Note:** The `NODE_ENV` variable is always forced to be `production` irrespective of whether the service is running offline or in the cloud. This is so that the Polyfill service will run in production mode. 
+
+This will trigger output that looks something like:
 
 ```
 Serverless: Packaging service...
@@ -36,8 +58,24 @@ functions:
   polyfill: polyfill-production-polyfill
 ```
 
-You can then place that URL in a `script` tag in your application's HTML before you load your main JavaScript to get all of the necessary polyfills.
+## Usage
+
+Place the endpoint URL in a `script` tag in your application's HTML before you load your main JavaScript to get all of the necessary polyfills. Polyfill will use your browser's user-agent to determine all the Polyfills that should be loaded.
+
+##### HTML
+
+View the source of the included `debug.html` file to see how the Polyfill service should be used on a webpage.
+
+##### cURL
+
+```shell
+curl -v http://localhost:3000/polyfill.js
+```
+
+## Linting
+
+Polyfill uses Prettier to format and lint it's sources. Run `yarn build` to prettify all the sources.
 
 ## Testing
 
-Unit tests are run by executing `yarn test`.
+Serverless uses Jest for testing. Run the entire test suite by executing `yarn test`. 
