@@ -74,7 +74,7 @@ curl -v http://localhost:3000/polyfill.js
 
 ## Linting
 
-Polyfill uses Prettier to format and lint it's sources. Run `yarn build` to prettify all the sources.
+This service uses Prettier to format and lint it's sources. Run `yarn build` to prettify all the sources.
 
 ## Testing
 
