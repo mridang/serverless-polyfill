@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/mridang/serverless-polyfill",
   "dependencies": {
-    "async": "^2.6.0",
+    "async": "^3.2.2",
     "polyfill-service": "^3.25.3",
     "serverless": "^1.35.1"
   },
